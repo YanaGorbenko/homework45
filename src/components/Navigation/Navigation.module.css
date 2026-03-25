@@ -1,0 +1,24 @@
+.productsList {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.link {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s;
+}
+
+.link:hover {
+  color: #ff6b6b;
+}
+
+.activeLink {
+  color: #ff6b6b;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: color 0.3s;
+}

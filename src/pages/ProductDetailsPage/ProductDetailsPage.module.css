@@ -1,0 +1,22 @@
+.productTitle {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.text {
+  margin-bottom: 0.5rem;
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+
+.span {
+  color: #650202;
+  font-size: 18px;
+  font-weight: 700;
+}
