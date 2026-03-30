@@ -1,45 +1,28 @@
-import { useEffect, useState } from 'react';
-import { getProducts } from '../../services/ProductsApi';
+import { getProducts } from '../../services/productsApi.tsx';
 import { type Product } from '../../types/index';
-import { Link } from 'react-router';
-import css from './ProductPage.module.css';
+import { Status } from '../../components/Status/Status.tsx';
+import { ProductsList } from '../../components/ProductsList/ProductsList.tsx';
+import { useQuery } from '@tanstack/react-query';
+
+interface ProductsResponse {
+  products: Product[];
+}
 
 export const ProductsPage = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    const showProducts = async () => {
-      try {
-        setIsError(false);
-        setIsLoading(true);
-        const { products } = await getProducts();
-        setProducts(products);
-      } catch {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    showProducts();
-  }, []);
+  const {
+    data: products,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['products'],
+    queryFn: getProducts,
+    select: (data: ProductsResponse) => data.products,
+  });
 
   return (
     <>
-      {isLoading && <p>Завантаження...</p>}
-      {isError && <p>Ой! Сталася помилка</p>}
-      {products && (
-        <ul className={css.productsList}>
-          {products.map(product => (
-            <li key={product.id} className={css.listItem}>
-              <Link to={`${product.id}`} className={css.link}>
-                {product.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+      <Status loader={isLoading} error={isError} />
+      {products && <ProductsList products={products} />}
     </>
   );
 };
