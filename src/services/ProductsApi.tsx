@@ -10,7 +10,7 @@ export const getProducts = async () => {
     params: { limit: 20 },
   });
 
-  return data;
+  return data.products;
 };
 
 export const getProductById = async (id: string) => {

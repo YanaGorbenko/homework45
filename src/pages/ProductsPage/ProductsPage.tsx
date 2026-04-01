@@ -1,12 +1,9 @@
 import { getProducts } from '../../services/productsApi.tsx';
-import { type Product } from '../../types/index';
-import { Status } from '../../components/Status/Status.tsx';
+
+import { Loader } from '../../components/Loader/Loader.tsx';
+import { Error } from '../../components/Error/Error.tsx';
 import { ProductsList } from '../../components/ProductsList/ProductsList.tsx';
 import { useQuery } from '@tanstack/react-query';
-
-interface ProductsResponse {
-  products: Product[];
-}
 
 export const ProductsPage = () => {
   const {
@@ -16,12 +13,12 @@ export const ProductsPage = () => {
   } = useQuery({
     queryKey: ['products'],
     queryFn: getProducts,
-    select: (data: ProductsResponse) => data.products,
   });
 
   return (
     <>
-      <Status loader={isLoading} error={isError} />
+      <Loader loader={isLoading} />
+      <Error error={isError} />
       {products && <ProductsList products={products} />}
     </>
   );

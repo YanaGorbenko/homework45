@@ -1,6 +1,7 @@
 import { useParams } from 'react-router';
 import { getProductById } from '../../services/productsApi.tsx';
-import { Status } from '../../components/Status/Status.tsx';
+import { Loader } from '../../components/Loader/Loader.tsx';
+import { Error } from '../../components/Error/Error.tsx';
 import { ProductDetails } from '../../components/ProductDetails/ProductDetails.tsx';
 import { useQuery } from '@tanstack/react-query';
 
@@ -19,7 +20,8 @@ export const ProductDetailsPage = () => {
 
   return (
     <>
-      <Status loader={isLoading} error={isError} />
+      <Loader loader={isLoading} />
+      <Error error={isError} />
       {product && <ProductDetails product={product} />}
     </>
   );
